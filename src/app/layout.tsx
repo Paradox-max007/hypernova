@@ -14,28 +14,33 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevStudio — Independent Mobile App Developer",
+  title: "Jyothilal Reji — Independent App Developer | Creator of Delulu",
   description:
-    "DevStudio is an independent mobile app developer building thoughtful, well-crafted applications for Android. Quality apps, privacy-first design.",
+    "Jyothilal Reji is an independent mobile app developer from Kerala, India. Creator of Delulu — a modern dating app built with Flutter featuring AI face detection, real-time chat, and location-based discovery.",
   keywords: [
-    "DevStudio",
+    "Jyothilal Reji",
+    "Delulu",
+    "dating app",
+    "Flutter developer",
     "mobile app developer",
-    "Android apps",
     "independent developer",
-    "app studio",
+    "Kerala",
+    "India",
+    "Android app",
+    "iOS app",
   ],
-  authors: [{ name: "DevStudio" }],
+  authors: [{ name: "Jyothilal Reji" }],
   openGraph: {
-    title: "DevStudio — Independent Mobile App Developer",
+    title: "Jyothilal Reji — Independent App Developer",
     description:
-      "Building thoughtful, well-crafted mobile applications that make everyday life a little easier.",
+      "Creator of Delulu — a modern dating app built with Flutter. AI-powered face detection, real-time chat, and location-based discovery.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevStudio — Independent Mobile App Developer",
+    title: "Jyothilal Reji — Independent App Developer",
     description:
-      "Building thoughtful, well-crafted mobile applications that make everyday life a little easier.",
+      "Creator of Delulu — a modern dating app built with Flutter.",
   },
 };
 

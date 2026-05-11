@@ -3,15 +3,19 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Smartphone,
+  Heart,
   Mail,
-  Globe,
+  Phone,
+  MapPin,
   Shield,
   Menu,
   X,
   ExternalLink,
-  Download,
-  Star,
+  Github,
+  User,
+  Sparkles,
+  MessageCircle,
+  Map,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,38 +25,47 @@ import { Separator } from "@/components/ui/separator";
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
-  { label: "Apps", href: "#apps" },
+  { label: "My App", href: "#app" },
   { label: "Privacy Policy", href: "#privacy" },
   { label: "Contact", href: "#contact" },
 ];
 
-const APPS = [
+const DELULU_FEATURES = [
   {
-    title: "FocusFlow",
+    icon: <User className="h-5 w-5" />,
+    title: "Smart Profiles",
     description:
-      "A minimalist productivity timer that helps you stay focused and manage your work sessions with the Pomodoro technique.",
-    category: "Productivity",
-    icon: "⏱️",
-    rating: 4.7,
-    downloads: "10K+",
+      "AI-powered face detection for authentic profile verification and photo matching.",
   },
   {
-    title: "PocketBudget",
+    icon: <MessageCircle className="h-5 w-5" />,
+    title: "Real-Time Chat",
     description:
-      "A simple and intuitive expense tracker that helps you manage your finances and reach your savings goals.",
-    category: "Finance",
-    icon: "💰",
-    rating: 4.5,
-    downloads: "5K+",
+      "Instant messaging with encrypted conversations, voice messages, and media sharing.",
   },
   {
-    title: "NightLens",
+    icon: <Map className="h-5 w-5" />,
+    title: "Discover Nearby",
     description:
-      "A camera app optimized for low-light photography with AI-powered noise reduction and scene enhancement.",
-    category: "Photography",
-    icon: "📸",
-    rating: 4.3,
-    downloads: "2K+",
+      "Location-based discovery with interactive maps to find people around you.",
+  },
+  {
+    icon: <Sparkles className="h-5 w-5" />,
+    title: "Beautiful Experience",
+    description:
+      "Smooth animations, custom typography, and a polished UI built with Flutter.",
+  },
+  {
+    icon: <Shield className="h-5 w-5" />,
+    title: "Privacy First",
+    description:
+      "End-to-end encrypted messaging and secure data handling you can trust.",
+  },
+  {
+    icon: <Heart className="h-5 w-5" />,
+    title: "Premium Features",
+    description:
+      "Unlock extra perks and enhanced matching with affordable in-app purchases.",
   },
 ];
 
@@ -68,7 +81,7 @@ function staggerContainer() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.12 },
     },
   };
 }
@@ -108,9 +121,9 @@ export default function Home() {
             className="flex items-center gap-2 font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity"
           >
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-              D
+              JR
             </div>
-            <span>DevStudio</span>
+            <span>Jyothilal Reji</span>
           </button>
 
           {/* Desktop nav */}
@@ -137,7 +150,11 @@ export default function Home() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </nav>
 
@@ -176,7 +193,6 @@ export default function Home() {
           id="home"
           className="relative overflow-hidden border-b border-border/40"
         >
-          {/* Subtle background gradient */}
           <div className="absolute inset-0 -z-10 bg-gradient-to-br from-secondary/60 via-background to-secondary/30" />
 
           <motion.div
@@ -187,7 +203,7 @@ export default function Home() {
           >
             <motion.div variants={fadeUp(0)} className="mb-6">
               <Badge variant="secondary" className="px-3 py-1 text-sm">
-                <Globe className="h-3.5 w-3.5 mr-1.5" />
+                <Heart className="h-3.5 w-3.5 mr-1.5 text-rose-500" />
                 Independent App Developer
               </Badge>
             </motion.div>
@@ -196,24 +212,31 @@ export default function Home() {
               variants={fadeUp(0.1)}
               className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground"
             >
-              DevStudio
+              Jyothilal Reji
             </motion.h1>
+
+            <motion.p
+              variants={fadeUp(0.15)}
+              className="mt-2 text-lg text-muted-foreground"
+            >
+              Mobile App Developer &middot; Kerala, India
+            </motion.p>
 
             <motion.p
               variants={fadeUp(0.2)}
               className="mt-4 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             >
-              Building thoughtful, well-crafted mobile applications that make
-              everyday life a little easier and more enjoyable.
+              Building apps as a passion project — crafting thoughtful mobile
+              experiences with Flutter, one idea at a time.
             </motion.p>
 
             <motion.div
               variants={fadeUp(0.3)}
               className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
             >
-              <Button size="lg" onClick={() => scrollTo("#apps")}>
-                <Smartphone className="h-4 w-4 mr-2" />
-                View Our Apps
+              <Button size="lg" onClick={() => scrollTo("#app")}>
+                <Heart className="h-4 w-4 mr-2" />
+                Explore Delulu
               </Button>
               <Button
                 size="lg"
@@ -238,39 +261,90 @@ export default function Home() {
           >
             <motion.div variants={fadeUp(0)} className="text-center mb-12">
               <Badge variant="outline" className="mb-3">
-                About Us
+                About Me
               </Badge>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                Who We Are
+                The Developer Behind Delulu
               </h2>
-              <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-                A small independent studio passionate about creating useful and
-                beautifully designed mobile experiences.
-              </p>
             </motion.div>
 
-            <div className="grid gap-6 sm:grid-cols-3">
+            <motion.div variants={fadeUp(0.1)} className="max-w-2xl mx-auto">
+              <Card className="border-border/50">
+                <CardContent className="pt-6 text-center">
+                  {/* Avatar placeholder */}
+                  <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-rose-100 to-rose-200 text-3xl">
+                    🧑‍💻
+                  </div>
+
+                  <h3 className="text-xl font-semibold">Jyothilal Reji</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Solo Developer &middot; Flutter Enthusiast
+                  </p>
+
+                  <div className="flex flex-wrap items-center justify-center gap-3 mt-4 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-1.5">
+                      <MapPin className="h-3.5 w-3.5" />
+                      Kerala, India
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Mail className="h-3.5 w-3.5" />
+                      jyothilalreji007@gmail.com
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Phone className="h-3.5 w-3.5" />
+                      +91 9747390243
+                    </span>
+                  </div>
+
+                  <Separator className="my-5" />
+
+                  <div className="text-sm text-muted-foreground leading-relaxed text-left space-y-3">
+                    <p>
+                      Hi, I&apos;m Jyothilal — a passionate independent developer
+                      based in Kerala, India. I build mobile apps as a personal
+                      passion project, learning and experimenting with new
+                      technologies along the way.
+                    </p>
+                    <p>
+                      <strong className="text-foreground">Delulu</strong> is my
+                      first published app — a dating application built from the
+                      ground up with Flutter. It features AI-powered face
+                      detection for profile verification, real-time messaging,
+                      location-based discovery, and much more.
+                    </p>
+                    <p>
+                      I believe in clean code, thoughtful design, and building
+                      things that genuinely make a difference in people&apos;s
+                      lives — even if it starts as a hobby.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Values */}
+            <div className="grid gap-6 sm:grid-cols-3 mt-12">
               {[
                 {
-                  icon: <Smartphone className="h-6 w-6" />,
-                  title: "Quality First",
-                  text: "Every app is built with attention to detail, clean code, and a focus on user experience.",
+                  icon: <Heart className="h-6 w-6 text-rose-500" />,
+                  title: "Passion Driven",
+                  text: "Every line of code comes from genuine curiosity and a love for building great apps.",
                 },
                 {
                   icon: <Shield className="h-6 w-6" />,
-                  title: "Privacy Focused",
-                  text: "We respect your data. Minimal permissions, transparent policies, no hidden tracking.",
+                  title: "Privacy First",
+                  text: "Your data is yours. End-to-end encryption and minimal data collection are non-negotiable.",
                 },
                 {
-                  icon: <Star className="h-6 w-6" />,
-                  title: "User Driven",
-                  text: "Regular updates based on community feedback. Your experience matters to us.",
+                  icon: <User className="h-6 w-6" />,
+                  title: "User Centric",
+                  text: "Designed with real people in mind — intuitive, accessible, and delightful to use.",
                 },
               ].map((item, i) => (
                 <motion.div key={item.title} variants={fadeUp(i * 0.1)}>
                   <Card className="h-full border-border/50 hover:border-border hover:shadow-md transition-all duration-300">
                     <CardContent className="pt-6">
-                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-primary">
+                      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-secondary">
                         {item.icon}
                       </div>
                       <h3 className="font-semibold text-lg">{item.title}</h3>
@@ -287,8 +361,8 @@ export default function Home() {
 
         <Separator className="mx-auto max-w-5xl" />
 
-        {/* ─── Apps Section ─── */}
-        <section id="apps" className="scroll-mt-16">
+        {/* ─── App Section ─── */}
+        <section id="app" className="scroll-mt-16">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -298,75 +372,133 @@ export default function Home() {
           >
             <motion.div variants={fadeUp(0)} className="text-center mb-12">
               <Badge variant="outline" className="mb-3">
-                Our Apps
+                My App
               </Badge>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                What We&apos;ve Built
+                Delulu
               </h2>
+              <p className="mt-2 text-lg text-muted-foreground italic">
+                &ldquo;Obsidian Dream&rdquo;
+              </p>
               <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
-                Explore our collection of mobile apps available on Google Play.
+                A modern dating app built with Flutter — featuring AI-powered
+                face detection, real-time chat, and location-based discovery.
               </p>
             </motion.div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {APPS.map((app, i) => (
-                <motion.div key={app.title} variants={fadeUp(i * 0.1)}>
-                  <Card className="group h-full border-border/50 hover:border-border hover:shadow-lg transition-all duration-300">
-                    <CardContent className="pt-6 flex flex-col h-full">
-                      {/* App icon area */}
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-3xl">
-                        {app.icon}
+            {/* Main app card */}
+            <motion.div variants={fadeUp(0.1)}>
+              <Card className="border-border/50 hover:shadow-lg transition-all duration-300">
+                <CardContent className="pt-8 pb-8">
+                  <div className="flex flex-col md:flex-row gap-8">
+                    {/* App icon + info */}
+                    <div className="flex-shrink-0 text-center md:text-left">
+                      <div className="mx-auto md:mx-0 mb-4 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-rose-400 to-pink-600 text-5xl shadow-lg shadow-rose-200">
+                        💕
                       </div>
-
-                      {/* Category badge */}
-                      <Badge
-                        variant="secondary"
-                        className="w-fit text-xs mb-3"
-                      >
-                        {app.category}
+                      <Badge className="bg-rose-100 text-rose-700 hover:bg-rose-200 border-0">
+                        Dating &amp; Social
                       </Badge>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Built with Flutter
+                      </p>
+                    </div>
 
-                      <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
-                        {app.title}
-                      </h3>
-                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">
-                        {app.description}
+                    {/* Description */}
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold">Delulu</h3>
+                      <p className="text-sm text-muted-foreground italic mb-3">
+                        Obsidian Dream
+                      </p>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Delulu is a feature-rich dating application that
+                        reimagines how people connect. With AI-powered face
+                        verification for authentic profiles, real-time encrypted
+                        messaging, location-based discovery with interactive
+                        maps, and beautifully crafted animations — Delulu offers
+                        a premium dating experience built entirely with Flutter
+                        and Dart.
                       </p>
 
-                      {/* Stats row */}
-                      <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                          {app.rating}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Download className="h-3.5 w-3.5" />
-                          {app.downloads}
-                        </span>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        <Button size="sm" className="gap-1.5">
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            fill="currentColor"
+                          >
+                            <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.396 13l2.302-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z" />
+                          </svg>
+                          Google Play
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="gap-1.5"
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            className="h-4 w-4"
+                            fill="currentColor"
+                          >
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                          </svg>
+                          App Store
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          asChild
+                          className="gap-1.5"
+                        >
+                          <a
+                            href="https://github.com/JYOTHILALREJI/Delulu"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Github className="h-4 w-4" />
+                            Source Code
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </Button>
                       </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-                      <Separator className="my-4" />
-
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="w-fit text-sm"
-                      >
-                        View on Google Play
-                        <ExternalLink className="h-3.5 w-3.5 ml-1.5" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.p
-              variants={fadeUp(0.4)}
-              className="text-center text-sm text-muted-foreground mt-8"
-            >
-              More apps coming soon. Stay tuned!
-            </motion.p>
+            {/* Features grid */}
+            <motion.div variants={fadeUp(0.2)} className="mt-12">
+              <h3 className="text-lg font-semibold text-center mb-6">
+                Key Features
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {DELULU_FEATURES.map((feature, i) => (
+                  <motion.div key={feature.title} variants={fadeUp(i * 0.05)}>
+                    <Card className="h-full border-border/50 hover:border-border transition-all duration-300">
+                      <CardContent className="pt-5 pb-5">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
+                            {feature.icon}
+                          </div>
+                          <div>
+                            <h4 className="font-medium text-sm">
+                              {feature.title}
+                            </h4>
+                            <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                              {feature.description}
+                            </p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </section>
 
@@ -390,7 +522,12 @@ export default function Home() {
                 Privacy Policy
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                Last updated:{" "}
+                {new Date().toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </p>
             </motion.div>
 
@@ -399,100 +536,161 @@ export default function Home() {
                 <CardContent className="pt-6 prose prose-neutral dark:prose-invert max-w-none text-sm leading-relaxed text-muted-foreground [&_h3]:text-foreground [&_h3]:text-base [&_h3]:font-semibold [&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:first:mt-0 [&_p]:mb-3">
                   <h3>Introduction</h3>
                   <p>
-                    DevStudio (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) respects your
-                    privacy and is committed to protecting your personal data. This
-                    privacy policy explains how we handle information when you use
-                    our mobile applications.
+                    I (&ldquo;Jyothilal Reji&rdquo;, the developer of Delulu)
+                    respect your privacy and am committed to protecting your
+                    personal data. This privacy policy explains how I handle
+                    information when you use the Delulu mobile application.
                   </p>
 
                   <h3>Information We Collect</h3>
                   <p>
-                    Our apps are designed to collect the minimum amount of data
-                    necessary to function properly. Depending on the app, we may
-                    collect:
+                    Delulu is designed to collect the minimum amount of data
+                    necessary to provide its services. Depending on features you
+                    use, we may collect:
                   </p>
                   <ul className="list-disc pl-5 space-y-1 mb-3">
                     <li>
-                      <strong className="text-foreground">Device information:</strong>{" "}
-                      Android version, device model (for compatibility
-                      optimization only).
+                      <strong className="text-foreground">
+                        Profile information:
+                      </strong>{" "}
+                      Photos, name, and bio that you voluntarily provide.
                     </li>
                     <li>
-                      <strong className="text-foreground">App usage data:</strong>{" "}
-                      Crash reports and anonymous usage statistics to improve app
-                      stability.
+                      <strong className="text-foreground">
+                        Location data:
+                      </strong>{" "}
+                      Approximate location for discovering nearby users (with your
+                      explicit permission).
                     </li>
                     <li>
-                      <strong className="text-foreground">User preferences:</strong>{" "}
-                      Settings and preferences stored locally on your device.
+                      <strong className="text-foreground">
+                        Device information:
+                      </strong>{" "}
+                      Device model, OS version for compatibility and crash
+                      reporting.
+                    </li>
+                    <li>
+                      <strong className="text-foreground">
+                        Chat messages:
+                      </strong>{" "}
+                      Messages are end-to-end encrypted and are not accessible to
+                      the developer.
+                    </li>
+                    <li>
+                      <strong className="text-foreground">
+                        Face detection data:
+                      </strong>{" "}
+                      On-device processing only — face detection runs locally and
+                      images are not stored on any server.
                     </li>
                   </ul>
 
-                  <h3>Data Storage</h3>
+                  <h3>Data Storage &amp; Security</h3>
                   <p>
-                    Most data is stored locally on your device. Any data that is
-                    transmitted to our servers is encrypted in transit and does not
-                    include personally identifiable information. We do not sell,
-                    trade, or rent your personal data to third parties.
+                    Your data is stored securely on cloud infrastructure. Messages
+                    are end-to-end encrypted — meaning only you and the recipient
+                    can read them. Face detection is performed entirely on-device
+                    using Google ML Kit, and your photos are never uploaded to any
+                    third-party server for analysis. We use industry-standard
+                    encryption for data in transit and at rest.
+                  </p>
+
+                  <h3>Data Sharing</h3>
+                  <p>
+                    We do not sell, trade, or rent your personal data to third
+                    parties. Your information is only shared with service
+                    providers necessary to operate the app (e.g., cloud hosting,
+                    push notification services) and only to the extent required.
+                  </p>
+
+                  <h3>Your Rights</h3>
+                  <p>You have the right to:</p>
+                  <ul className="list-disc pl-5 space-y-1 mb-3">
+                    <li>Access the personal data we hold about you.</li>
+                    <li>Request correction of inaccurate data.</li>
+                    <li>Request deletion of your account and associated data.</li>
+                    <li>Withdraw consent for data processing at any time.</li>
+                    <li>
+                      Export your data in a portable format.
+                    </li>
+                  </ul>
+                  <p>
+                    To exercise any of these rights, please contact me at{" "}
+                    <a
+                      href="mailto:jyothilalreji007@gmail.com"
+                      className="text-primary underline underline-offset-2 hover:text-primary/80"
+                    >
+                      jyothilalreji007@gmail.com
+                    </a>
+                    .
+                  </p>
+
+                  <h3>Children&apos;s Privacy</h3>
+                  <p>
+                    Delulu is not intended for users under 18 years of age. We do
+                    not knowingly collect personal data from minors. If we become
+                    aware that we have collected data from a child under 18, we
+                    will take steps to delete that information promptly.
                   </p>
 
                   <h3>Third-Party Services</h3>
                   <p>
-                    Our apps may use the following third-party services:
+                    Delulu may use the following third-party services:
                   </p>
                   <ul className="list-disc pl-5 space-y-1 mb-3">
                     <li>
-                      <strong className="text-foreground">Google Play Services:</strong>{" "}
-                      For analytics and crash reporting (Firebase Analytics).
+                      <strong className="text-foreground">
+                        Google Play Services:
+                      </strong>{" "}
+                      For analytics, crash reporting, and in-app billing.
                     </li>
                     <li>
-                      <strong className="text-foreground">Ad networks (if applicable):</strong>{" "}
-                      May collect device identifiers for ad personalization.
-                      You can opt out via your device settings.
+                      <strong className="text-foreground">
+                        Google ML Kit:
+                      </strong>{" "}
+                      For on-device face detection (no data leaves your device).
+                    </li>
+                    <li>
+                      <strong className="text-foreground">
+                        Google Maps SDK:
+                      </strong>{" "}
+                      For location-based features (location data is shared only
+                      with your explicit permission).
                     </li>
                   </ul>
 
-                  <h3>Children&apos;s Privacy</h3>
-                  <p>
-                    Our apps are not directed at children under 13. We do not
-                    knowingly collect personal data from children. If you believe
-                    we have collected data from a child, please contact us
-                    immediately.
-                  </p>
-
-                  <h3>Your Rights</h3>
-                  <p>
-                    You have the right to access, correct, or delete any personal
-                    data we hold about you. You can also request a copy of your
-                    data or withdraw consent at any time by contacting us at{" "}
-                    <a
-                      href="mailto:contact@devstudio.app"
-                      className="text-primary underline underline-offset-2 hover:text-primary/80"
-                    >
-                      contact@devstudio.app
-                    </a>
-                    .
-                  </p>
-
                   <h3>Changes to This Policy</h3>
                   <p>
-                    We may update this privacy policy from time to time. Changes
-                    will be posted on this page with an updated revision date. We
-                    encourage you to review this policy periodically.
+                    I may update this privacy policy from time to time. Changes
+                    will be posted on this page with an updated revision date.
+                    Continued use of Delulu after changes constitutes acceptance
+                    of the updated policy.
                   </p>
 
-                  <h3>Contact Us</h3>
+                  <h3>Contact</h3>
                   <p>
-                    If you have any questions about this privacy policy or our
-                    data practices, please reach out to us at{" "}
-                    <a
-                      href="mailto:contact@devstudio.app"
-                      className="text-primary underline underline-offset-2 hover:text-primary/80"
-                    >
-                      contact@devstudio.app
-                    </a>
-                    .
+                    If you have any questions or concerns about this privacy
+                    policy or Delulu&apos;s data practices, please contact me at:
                   </p>
+                  <ul className="list-none pl-0 space-y-1 mb-3">
+                    <li>
+                      <strong className="text-foreground">Email:</strong>{" "}
+                      <a
+                        href="mailto:jyothilalreji007@gmail.com"
+                        className="text-primary underline underline-offset-2 hover:text-primary/80"
+                      >
+                        jyothilalreji007@gmail.com
+                      </a>
+                    </li>
+                    <li>
+                      <strong className="text-foreground">Phone:</strong>{" "}
+                      +91 9747390243
+                    </li>
+                    <li>
+                      <strong className="text-foreground">Location:</strong>{" "}
+                      Kerala, India
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </motion.div>
@@ -508,13 +706,13 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 font-semibold text-lg mb-3">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-                  D
+                  JR
                 </div>
-                DevStudio
+                Jyothilal Reji
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-                Independent mobile app developer creating thoughtful tools for
-                everyday life.
+                Independent mobile app developer from Kerala, India. Building
+                Delulu — a modern dating app built with Flutter.
               </p>
             </div>
 
@@ -541,18 +739,38 @@ export default function Home() {
               <ul className="space-y-2.5">
                 <li>
                   <a
-                    href="mailto:contact@devstudio.app"
+                    href="mailto:jyothilalreji007@gmail.com"
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Mail className="h-4 w-4" />
-                    contact@devstudio.app
+                    jyothilalreji007@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="tel:+919747390243"
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Phone className="h-4 w-4" />
+                    +91 9747390243
                   </a>
                 </li>
                 <li>
                   <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Globe className="h-4 w-4" />
-                    Google Play
+                    <MapPin className="h-4 w-4" />
+                    Kerala, India
                   </span>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/JYOTHILALREJI/Delulu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <Github className="h-4 w-4" />
+                    GitHub
+                  </a>
                 </li>
               </ul>
             </div>
@@ -562,11 +780,10 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
             <p>
-              &copy; {new Date().getFullYear()} DevStudio. All rights reserved.
+              &copy; {new Date().getFullYear()} Jyothilal Reji. All rights
+              reserved.
             </p>
-            <p>
-              Built with care for users worldwide.
-            </p>
+            <p>Built with passion in Kerala, India.</p>
           </div>
         </div>
       </footer>
