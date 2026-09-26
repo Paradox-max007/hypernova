@@ -70,6 +70,19 @@ That's it — the app picks the PostgreSQL Prisma client automatically whenever 
 
 > Why the *session pooler* URL? Vercel functions need an IPv4-compatible hostname; Supabase's direct database host is IPv6-only on the free tier. The session pooler works with Prisma out of the box.
 
+#### Troubleshooting: "build worked but the page says it does not exist" (404 on every URL)
+
+This means the Vercel project is **not using the Next.js framework runtime** — it was created with custom/static settings (e.g. a Root Directory like `static`), so Vercel runs the build but then serves the repo as a plain static folder, which has no `index.html` → edge-level `NOT_FOUND`.
+
+Fix — recreate the project cleanly (2 minutes):
+
+1. Vercel dashboard → open the project → **Settings** → scroll to bottom → **Delete Project**.
+2. **Add New → Project → Import** the `hypernova` repo again — this time the framework **auto-detects as Next.js** and every setting stays on default (don't set Root Directory / Build Command / Output Directory manually).
+3. Before deploying, expand **Environment Variables** on the import screen and add `DATABASE_URL` + `ADMIN_PASSWORD`.
+4. Deploy.
+
+If you'd rather not delete the project: **Settings → General → Build & Development Settings** → set every override back to **Default** (Build Command, Output Directory, Install Command) and make sure the Framework Preset is **Next.js** — then Redeploy.
+
 ### 3. After deploying
 
 - Visit `https://<your-domain>/#/admin` and log in with your `ADMIN_PASSWORD`.
