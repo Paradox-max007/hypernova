@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  tagline      String
+  category     String
+  year         String?
+  description  String?
+  featured     Boolean  @default(false)
+  githubUrl    String?
+  liveUrl      String?
+  accentColor  String?
+  roleNote     String?
+  sortOrder    Int      @default(0)
+  idea         String?
+  problem      String?
+  solution     String?
+  howItWorks   String? // JSON [{title, detail}]
+  features     String? // JSON [{title, detail}]
+  challenges   String?
+  whatIBuilt   String?
+  result       String?
+  architecture String? // key for animated diagram
+  metrics      String? // JSON [{value, suffix, label}]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  technologies ProjectTechnology[]
+
+  @@map("projects")
+}
+
+model Technology {
+  id          String              @id @default(cuid())
+  name        String              @unique
+  category    String
+  description String?
+  usedFor     String? // JSON string[]
+  sortOrder   Int                 @default(0)
+
+  projects    ProjectTechnology[]
+
+  @@map("technologies")
+}
+
+model ProjectTechnology {
+  projectId    String
+  technologyId String
+
+  project    Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  technology Technology @relation(fields: [technologyId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, technologyId])
+  @@map("project_technologies")
+}
+
+model Experience {
+  id              String  @id @default(cuid())
+  company         String
+  role            String
+  location        String
+  startDate       String
+  endDate         String
+  current         Boolean @default(true)
+  description     String?
+  responsibilities String? // JSON string[]
+  highlights       String? // JSON [{value, suffix, label}]
+  sortOrder        Int     @default(0)
+
+  @@map("experience")
+}
+
+model Education {
+  id          String  @id @default(cuid())
+  degree      String
+  institution String
+  location    String?
+  startDate   String
+  endDate     String
+  cgpa        String?
+  description String?
+  sortOrder   Int     @default(0)
+
+  @@map("education")
+}
+
+model Certification {
+  id        String  @id @default(cuid())
+  title     String
+  issuer    String
+  date      String?
+  url       String?
+  sortOrder Int     @default(0)
+
+  @@map("certifications")
+}
+
+model ContactRequest {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  company     String?
+  projectType String
+  budget      String
+  message     String
+  status      String   @default("new")
+  createdAt   DateTime @default(now())
+
+  @@map("contact_requests")
+}
+
+model SiteSetting {
+  key   String @id
+  value String
+
+  @@map("site_settings")
+}
