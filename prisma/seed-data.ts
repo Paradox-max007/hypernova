@@ -429,6 +429,7 @@ export const certifications: CertificationSeed[] = [
 
 export const settings: Array<[string, string]> = [
   ["contact.email", "jyothilalreji@gmail.com"],
+  ["contact.whatsapp", "+919778585539"],
   ["contact.github", "https://github.com/jyothilalreji"],
   ["contact.linkedin", "https://www.linkedin.com/in/jyothilal-reji"],
   ["contact.location", "Kerala, India · Working with clients worldwide"],

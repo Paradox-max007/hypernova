@@ -2,22 +2,25 @@
 
 import { ArrowUp, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { Reveal } from "./reveal";
+import { WhatsAppIcon } from "./whatsapp-icon";
 
 interface FooterProps {
   email: string;
   github: string;
   linkedin: string;
   location: string;
+  whatsapp?: string | null;
 }
 
 /** System footer — the "digital operating system" sign-off. */
-export function Footer({ email, github, linkedin, location }: FooterProps) {
+export function Footer({ email, github, linkedin, location, whatsapp }: FooterProps) {
   const year = new Date().getFullYear();
 
   const socials = [
   { label: "GitHub", href: github, icon: Github },
   { label: "LinkedIn", href: linkedin, icon: Linkedin },
   { label: "Email", href: `mailto:${email}`, icon: Mail },
+  ...(whatsapp ? [{ label: "WhatsApp", href: whatsapp, icon: WhatsAppIcon }] : []),
   ];
 
   return (
@@ -72,7 +75,7 @@ export function Footer({ email, github, linkedin, location }: FooterProps) {
                     <li key={s.label}>
                       <a
                         href={s.href}
-                        target={s.href.startsWith("mailto") ? undefined : "_blank"}
+                        target={s.href.startsWith("mailto") || s.href.startsWith("https://wa.me") ? undefined : "_blank"}
                         rel="noreferrer noopener"
                         className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
                       >
@@ -81,11 +84,6 @@ export function Footer({ email, github, linkedin, location }: FooterProps) {
                       </a>
                     </li>
                   ))}
-                  <li>
-                    <a href="#/admin" className="font-mono text-xs text-muted-foreground/60 transition-colors hover:text-primary">
-                      /admin
-                    </a>
-                  </li>
                 </ul>
               </div>
               <div className="col-span-2 sm:col-span-1">

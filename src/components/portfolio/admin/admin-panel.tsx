@@ -514,6 +514,7 @@ function RequestsTab({ requests, refresh }: { requests: ContactRequestView[]; re
 
 function SettingsTab({ data, refresh }: { data: PortfolioData; refresh: () => Promise<void> }) {
   const [email, setEmail] = useState(data.settings["contact.email"] ?? "");
+  const [whatsapp, setWhatsapp] = useState(data.settings["contact.whatsapp"] ?? "");
   const [github, setGithub] = useState(data.settings["contact.github"] ?? "");
   const [linkedin, setLinkedin] = useState(data.settings["contact.linkedin"] ?? "");
   const [location, setLocation] = useState(data.settings["contact.location"] ?? "");
@@ -536,6 +537,7 @@ function SettingsTab({ data, refresh }: { data: PortfolioData; refresh: () => Pr
       });
       const entries: Array<[string, string]> = [
         ["contact.email", email.trim()],
+        ["contact.whatsapp", whatsapp.trim()],
         ["contact.github", github.trim()],
         ["contact.linkedin", linkedin.trim()],
         ["contact.location", location.trim()],
@@ -567,6 +569,20 @@ function SettingsTab({ data, refresh }: { data: PortfolioData; refresh: () => Pr
           <div className="space-y-2">
             <Label className="text-sm">Contact email</Label>
             <Input value={email} onChange={(e) => setEmail(e.target.value)} className="bg-background" placeholder="you@example.com" />
+          </div>
+          <div className="space-y-2">
+            <Label className="text-sm">WhatsApp number</Label>
+            <Input
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              className="bg-background"
+              placeholder="+91 97785 85539 — full number with country code"
+              inputMode="tel"
+            />
+            <p className="text-xs text-muted-foreground">
+              Shown as a WhatsApp chat button in the contact section and footer. Include the country
+              code (e.g. +91…); formats like "+91 97785 85539" or "919778585539" both work.
+            </p>
           </div>
           <div className="space-y-2">
             <Label className="text-sm">Location line</Label>

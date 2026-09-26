@@ -212,6 +212,7 @@ INSERT INTO "certifications" ("id", "title", "issuer", "date", "url", "sortOrder
 
 -- Site settings
 INSERT INTO "site_settings" ("key", "value") VALUES ('contact.email', 'jyothilalreji@gmail.com');
+INSERT INTO "site_settings" ("key", "value") VALUES ('contact.whatsapp', '+919778585539');
 INSERT INTO "site_settings" ("key", "value") VALUES ('contact.github', 'https://github.com/jyothilalreji');
 INSERT INTO "site_settings" ("key", "value") VALUES ('contact.linkedin', 'https://www.linkedin.com/in/jyothilal-reji');
 INSERT INTO "site_settings" ("key", "value") VALUES ('contact.location', 'Kerala, India · Working with clients worldwide');

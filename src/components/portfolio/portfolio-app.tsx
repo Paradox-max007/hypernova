@@ -6,7 +6,7 @@ import { ArrowLeft, FolderOpen } from "lucide-react";
 import type { PortfolioData } from "@/lib/types";
 import type { LanguageEntry } from "@/lib/types";
 import { useHashRoute } from "@/lib/use-hash-route";
-import { cn } from "@/lib/utils";
+import { cn, whatsappHref } from "@/lib/utils";
 import { Navigation } from "./navigation";
 import { Footer } from "./footer";
 import { Hero } from "./hero";
@@ -38,6 +38,7 @@ export function PortfolioApp({ data }: { data: PortfolioData }) {
   const github = data.settings["contact.github"] ?? "https://github.com";
   const linkedin = data.settings["contact.linkedin"] ?? "https://linkedin.com";
   const location = data.settings["contact.location"] ?? "Kerala, India · Working with clients worldwide";
+  const whatsapp = whatsappHref(data.settings["contact.whatsapp"]);
 
   const viewKey =
     route.view === "project" ? `project-${route.slug}` : route.view === "home" ? "home" : route.view;
@@ -93,15 +94,15 @@ export function PortfolioApp({ data }: { data: PortfolioData }) {
                 certifications={data.certifications}
                 languages={languages}
               />
-              <ContactSection email={email} github={github} linkedin={linkedin} />
-              <Footer email={email} github={github} linkedin={linkedin} location={location} />
+              <ContactSection email={email} github={github} linkedin={linkedin} whatsapp={whatsapp} />
+              <Footer email={email} github={github} linkedin={linkedin} location={location} whatsapp={whatsapp} />
             </>
           )}
 
           {route.view === "work" && (
             <>
               <WorkView projects={data.projects} />
-              <Footer email={email} github={github} linkedin={linkedin} location={location} />
+              <Footer email={email} github={github} linkedin={linkedin} location={location} whatsapp={whatsapp} />
             </>
           )}
 
@@ -127,7 +128,7 @@ export function PortfolioApp({ data }: { data: PortfolioData }) {
                   </a>
                 </div>
               )}
-              <Footer email={email} github={github} linkedin={linkedin} location={location} />
+              <Footer email={email} github={github} linkedin={linkedin} location={location} whatsapp={whatsapp} />
             </>
           )}
 

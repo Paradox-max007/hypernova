@@ -28,11 +28,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "./reveal";
+import { WhatsAppIcon } from "./whatsapp-icon";
 
 interface ContactSectionProps {
   email: string;
   github: string;
   linkedin: string;
+  whatsapp?: string | null;
 }
 
 const PROJECT_TYPES = [
@@ -67,7 +69,7 @@ const INITIAL: InquiryState = {
 };
 
 /** Contact — the final CTA with an animated project-inquiry wizard. */
-export function ContactSection({ email, github, linkedin }: ContactSectionProps) {
+export function ContactSection({ email, github, linkedin, whatsapp }: ContactSectionProps) {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
@@ -167,6 +169,19 @@ export function ContactSection({ email, github, linkedin }: ContactSectionProps)
                 Email Me
               </a>
             </Button>
+            {whatsapp && (
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="h-12 rounded-full px-8 text-sm font-semibold"
+              >
+                <a href={whatsapp} target="_blank" rel="noreferrer noopener">
+                  <WhatsAppIcon size={16} className="mr-2" />
+                  WhatsApp
+                </a>
+              </Button>
+            )}
           </div>
         </Reveal>
 
