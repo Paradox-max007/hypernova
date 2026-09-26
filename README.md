@@ -61,14 +61,14 @@ The site reads and writes through Prisma, so it needs a hosted PostgreSQL databa
 
    | Variable | Value |
    |---|---|
-   | `DATABASE_URL` | your Supabase **Session pooler** connection string (Project Settings → Database → Connection string). Looks like `postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:5432/postgres` |
+   | `DATABASE_URL` | your Supabase **Transaction pooler** connection string (Project Settings → Database → Connection string). Recommended: `postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1` |
    | `ADMIN_PASSWORD` | your admin console password — e.g. `LENOVO@12samsung` |
 
 3. Deploy.
 
 That's it — the app picks the PostgreSQL Prisma client automatically whenever `DATABASE_URL` starts with `postgres://`. No code changes are needed for production.
 
-> Why the *session pooler* URL? Vercel functions need an IPv4-compatible hostname; Supabase's direct database host is IPv6-only on the free tier. The session pooler works with Prisma out of the box.
+> Why a *pooler* URL? Vercel functions need an IPv4-compatible hostname; Supabase's direct database host is IPv6-only on the free tier. Prefer the **transaction pooler (port 6543)** — it multiplexes connections server-side with ~200-client headroom. The app also auto-hardens any Supabase pooler URL: it injects `connection_limit=1` and `pool_timeout=20` (plus `pgbouncer=true` on 6543) so each serverless instance holds exactly ONE connection.
 
 #### Troubleshooting: "build worked but the page says it does not exist" (404 on every URL)
 
@@ -80,6 +80,10 @@ Fix — recreate the project cleanly (2 minutes):
 2. **Add New → Project → Import** the `hypernova` repo again — this time the framework **auto-detects as Next.js** and every setting stays on default (don't set Root Directory / Build Command / Output Directory manually).
 3. Before deploying, expand **Environment Variables** on the import screen and add `DATABASE_URL` + `ADMIN_PASSWORD`.
 4. Deploy.
+
+#### Troubleshooting: `FATAL: (EMAXCONNSESSION) max clients reached in session mode`
+
+Every warm serverless instance keeps its own Prisma connection pool alive. Prisma's default pool size is ~3–5 connections, so a few concurrent instances blow past the Supabase **session pooler's 15-client limit** — then every DB query fails until connections drain. Fixed automatically: `src/lib/db.ts` now caps each instance to a single connection (`connection_limit=1`) and turns on `pgbouncer=true` when the URL points at the transaction pooler (port 6543). For maximum headroom, set the transaction pooler URL in Vercel and redeploy.
 
 If you'd rather not delete the project: **Settings → General → Build & Development Settings** → set every override back to **Default** (Build Command, Output Directory, Install Command) and make sure the Framework Preset is **Next.js** — then Redeploy.
 

@@ -18,6 +18,37 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
+/**
+ * Harden Supabase pooler URLs for serverless (Vercel).
+ *
+ * Every warm serverless instance keeps its own Prisma client — and therefore
+ * its own connection pool — alive. Prisma's DEFAULT pool size is
+ * num_cpus * 2 + 1 (3–5 connections), so a handful of concurrent instances
+ * blows past the Supabase session pooler's 15-client limit and every query
+ * starts failing with:
+ *   FATAL: (EMAXCONNSESSION) max clients reached in session mode
+ *
+ * Rules applied — ONLY to *.pooler.supabase.com hosts, and ONLY for params the
+ * URL doesn't already set explicitly:
+ *   - port 6543 (transaction pooler): pgbouncer=true — multiplexed server-side
+ *     with ~200-client headroom, the recommended mode for serverless
+ *   - any port: connection_limit=1 — one physical connection per instance
+ *   - any port: pool_timeout=20     — queries wait up to 20s for the pool slot
+ */
+export function normalizePostgresUrl(raw: string): string {
+  try {
+    const url = new URL(raw);
+    if (!/(^|\.)pooler\.supabase\.com$/i.test(url.hostname)) return raw;
+    const p = url.searchParams;
+    if (url.port === "6543" && !p.has("pgbouncer")) p.set("pgbouncer", "true");
+    if (!p.has("connection_limit")) p.set("connection_limit", "1");
+    if (!p.has("pool_timeout")) p.set("pool_timeout", "20");
+    return url.toString();
+  } catch {
+    return raw; // unparseable — pass through untouched
+  }
+}
+
 function createPrismaClient(): PrismaClient {
   const url = process.env.DATABASE_URL ?? "";
 
@@ -25,7 +56,9 @@ function createPrismaClient(): PrismaClient {
     // PostgreSQL — generated into node_modules/@prisma-pg/client (see postinstall).
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { PrismaClient: PrismaPg } = require("@prisma-pg/client") as typeof import("@prisma/client");
-    return new PrismaPg() as unknown as PrismaClient;
+    return new PrismaPg({
+      datasources: { db: { url: normalizePostgresUrl(url) } },
+    }) as unknown as PrismaClient;
   }
 
   // SQLite — local development.
