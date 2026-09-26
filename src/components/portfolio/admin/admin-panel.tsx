@@ -146,6 +146,25 @@ export function AdminPanel() {
     setRequests(res.requests);
   }, []);
 
+  /**
+   * Load with one retry (2s backoff). The first call after a deploy can hit a
+   * cold serverless function (Prisma engine spin-up + first DB connection)
+   * and fail transiently — a single retry fixes the "Could not load admin
+   * data — logging out" class of issues. Auth failures (401 Unauthorized)
+   * are NOT retried: a rejected token is genuinely expired.
+   */
+  const loadWithRetry = useCallback(async () => {
+    try {
+      await load();
+    } catch (e) {
+      if (e instanceof Error && (e.message === "Unauthorized" || e.message.includes("401"))) {
+        throw e;
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+      await load();
+    }
+  }, [load]);
+
   useEffect(() => {
     // Defer the initial auth bootstrap off the effect body.
     const t = setTimeout(() => {
@@ -154,13 +173,13 @@ export function AdminPanel() {
         setChecked(true);
         return;
       }
-      load()
+      loadWithRetry()
         .then(() => setAuthed(true))
         .catch(() => clearToken())
         .finally(() => setChecked(true));
     }, 0);
     return () => clearTimeout(t);
-  }, [load]);
+  }, [loadWithRetry]);
 
   const refresh = useCallback(async () => {
     try {
@@ -181,10 +200,11 @@ export function AdminPanel() {
 
   const handleLoginSuccess = async () => {
     try {
-      await load();
+      await loadWithRetry();
       setAuthed(true);
-    } catch {
-      toast.error("Could not load admin data — logging out.");
+    } catch (e) {
+      const reason = e instanceof Error ? ` (${e.message})` : "";
+      toast.error(`Could not load admin data${reason} — logging out.`);
       clearToken();
       logout();
     }

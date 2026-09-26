@@ -3,6 +3,12 @@ import { db } from "@/lib/db";
 import { tokenFromRequest, verifyToken } from "@/lib/admin-auth";
 import { getPortfolioData } from "@/lib/portfolio-data";
 
+// The "data" endpoint fans out to 7 Prisma queries on a cold serverless
+// function (engine spin-up + first Supabase pooler connection). Vercel's
+// default function timeout is 10s, which a cold start can exceed — 60s
+// removes the "Could not load admin data" class of transient failures.
+export const maxDuration = 60;
+
 /* ------------------------------- entity spec ------------------------------ */
 
 type Spec = { strings: string[]; numbers: string[]; bools: string[]; required: string[] };

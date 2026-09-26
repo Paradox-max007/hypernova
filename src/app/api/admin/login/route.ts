@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ADMIN_PASSWORD, makeToken } from "@/lib/admin-auth";
 
+// Keep the login lambda alive long enough for cold starts (Prisma is not used
+// here, but this avoids edge cases on slow invocations after a redeploy).
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   const body = (await req.json().catch(() => null)) as { password?: string } | null;
   const password = typeof body?.password === "string" ? body.password : "";

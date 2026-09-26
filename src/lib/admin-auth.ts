@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 const SECRET = process.env.ADMIN_SECRET ?? "jr-portfolio-secret-2026";
 
-export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "jyothilal9778585539";
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "LENOVO@12samsung";
 
 export function makeToken(password: string): string {
   return crypto.createHash("sha256").update(`${password}::${SECRET}`).digest("hex");

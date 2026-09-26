@@ -62,7 +62,7 @@ The site reads and writes through Prisma, so it needs a hosted PostgreSQL databa
    | Variable | Value |
    |---|---|
    | `DATABASE_URL` | your Supabase **Session pooler** connection string (Project Settings → Database → Connection string). Looks like `postgresql://postgres.<ref>:<password>@aws-0-<region>.pooler.supabase.com:5432/postgres` |
-   | `ADMIN_PASSWORD` | your admin console password — e.g. `jyothilal9778585539` |
+   | `ADMIN_PASSWORD` | your admin console password — e.g. `LENOVO@12samsung` |
 
 3. Deploy.
 
@@ -91,7 +91,7 @@ If you'd rather not delete the project: **Settings → General → Build & Devel
 
 ## Admin console
 
-`#/admin` (note: it's a hash route on the same page — type it directly in the URL bar; there is no visible link to it). Password is set by the `ADMIN_PASSWORD` environment variable; when unset it defaults to `jyothilal9778585539`.
+`#/admin` (note: it's a hash route on the same page — type it directly in the URL bar; there is no visible link to it). Password is set by the `ADMIN_PASSWORD` environment variable; when unset it defaults to `LENOVO@12samsung`.
 
 Tabs: **Dashboard** (stats) · **Projects** (full case-study editor + technology multi-select) · **Experience** · **Education** · **Certificates** · **Skills** · **Requests** (contact inbox with status workflow) · **Settings** (contact links, languages).
 
