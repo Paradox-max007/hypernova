@@ -68,7 +68,9 @@ export function PortfolioApp({ data }: { data: PortfolioData }) {
 
   return (
     <div className="theme-anim relative flex min-h-screen flex-col bg-background">
-      <Navigation />
+      {/* The client-side navigation is hidden on the admin view — the admin console
+          renders its own header, so only one top navbar is visible there. */}
+      {route.view !== "admin" && <Navigation />}
 
       <AnimatePresence mode="wait">
         <motion.main

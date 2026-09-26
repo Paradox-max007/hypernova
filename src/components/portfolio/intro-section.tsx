@@ -74,9 +74,9 @@ export function IntroSection() {
               <div className="mt-8 max-w-3xl border-l-2 border-primary/40 pl-6">
                 <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
                   I&apos;m a computer applications graduate whose work spans data science, machine learning, web
-                  development and application development. The degree gave me the foundations — the projects gave me
-                  the practice: realtime multiplayer platforms, ML pipelines, client websites and complete products
-                  designed, built and shipped end-to-end.
+                  development and application development. The degree gave me the foundations — the work gave me
+                  the practice: a year of production development on a live UAE platform, realtime multiplayer
+                  hobby projects, and full-stack systems built end-to-end from college onward.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   {FACTS.map((f) => (

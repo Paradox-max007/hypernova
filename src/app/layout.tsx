@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jyothilal Reji — Digital Portfolio",
     description:
-      "Full Stack Developer · Data Science · Machine Learning. Explore interactive case studies of realtime multiplayer platforms, ML pipelines and client work.",
+      "Full Stack Developer · Data Science · Machine Learning. Explore interactive case studies — a live UAE production platform, realtime multiplayer systems and full-stack builds.",
     siteName: "Jyothilal Reji — Digital Portfolio",
     type: "website",
   },
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Jyothilal Reji — Digital Portfolio",
     description:
-      "Full Stack Developer · Data Science · Machine Learning. Realtime platforms, ML systems, interactive experiences.",
+      "Full Stack Developer · Data Science · Machine Learning. Live production platforms, realtime systems, interactive experiences.",
   },
 };
 

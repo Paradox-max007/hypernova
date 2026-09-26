@@ -56,78 +56,6 @@ export function ProjectVisual({ slug, className }: { slug: string; className?: s
       </svg>
     ),
 
-    /* ---------------------------- Quicky Ludo ----------------------------- */
-    "quicky-ludo": (
-      <svg viewBox="0 0 320 200" className={common}>
-        {[
-          { x: 108, y: 52, o: 0.9 },
-          { x: 158, y: 52, o: 0.45 },
-          { x: 108, y: 102, o: 0.45 },
-          { x: 158, y: 102, o: 0.75 },
-        ].map((q, i) => (
-          <g key={i}>
-            <rect x={q.x} y={q.y} width="46" height="46" rx="6" fill="currentColor" opacity={q.o * 0.14} stroke="currentColor" strokeOpacity={q.o * 0.6} />
-            <circle cx={q.x + 12} cy={q.y + 12} r="3.5" fill="currentColor" opacity={q.o} />
-            <circle cx={q.x + 34} cy={q.y + 34} r="3.5" fill="currentColor" opacity={q.o * 0.5} />
-          </g>
-        ))}
-        <rect x="132" y="76" width="40" height="40" rx="4" fill="none" stroke="var(--border)" strokeWidth="1.2" />
-        <path d="M152 82 L152 110 M138 96 L166 96" stroke="var(--border)" strokeWidth="1" />
-        <motion.g
-          initial={reduce ? undefined : { rotate: -8 }}
-          animate={reduce ? undefined : { rotate: [-8, 8, -8] }}
-          transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformBox: "view-box", transformOrigin: "256px 96px" }}
-        >
-          <rect x="244" y="84" width="24" height="24" rx="5" fill="currentColor" opacity="0.16" stroke="currentColor" strokeWidth="1.4" />
-          <circle cx="250" cy="90" r="2.2" fill="currentColor" />
-          <circle cx="262" cy="90" r="2.2" fill="currentColor" />
-          <circle cx="250" cy="102" r="2.2" fill="currentColor" />
-          <circle cx="262" cy="102" r="2.2" fill="currentColor" />
-          <circle cx="256" cy="96" r="2.2" fill="currentColor" />
-        </motion.g>
-        <path d="M232 96 L214 96" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 3" className={reduce ? "" : "animate-dash-flow"} />
-      </svg>
-    ),
-
-    /* -------------------------- Spin The Bottle --------------------------- */
-    "spin-the-bottle": (
-      <svg viewBox="0 0 320 200" className={common}>
-        <circle cx="160" cy="100" r="66" fill="none" stroke="var(--border)" strokeWidth="1" />
-        {[...Array(12)].map((_, i) => {
-          const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
-          const isTarget = i === 4;
-          const cx = r2(160 + Math.cos(a) * 66);
-          const cy = r2(100 + Math.sin(a) * 66);
-          if (isTarget) {
-            return (
-              <motion.circle
-                key={i}
-                cx={cx}
-                cy={cy}
-                r="4.5"
-                fill="currentColor"
-                initial={reduce ? undefined : { r: 4.5, opacity: 1 }}
-                animate={reduce ? undefined : { r: [4.5, 6.5, 4.5], opacity: [1, 0.6, 1] }}
-                transition={{ duration: 1.6, repeat: Infinity }}
-              />
-            );
-          }
-          return <circle key={i} cx={cx} cy={cy} r="4" fill="currentColor" opacity="0.3" />;
-        })}
-        <ellipse cx="160" cy="100" rx="10" ry="5" fill="currentColor" opacity="0.35" />
-        <motion.g
-          initial={reduce ? undefined : { rotate: 0 }}
-          animate={reduce ? undefined : { rotate: [0, 300, 210, 210] }}
-          transition={{ duration: 4.6, times: [0, 0.55, 0.8, 1], repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformBox: "view-box", transformOrigin: "160px 100px" }}
-        >
-          <line x1="160" y1="100" x2="160" y2="44" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          <circle cx="160" cy="48" r="5.5" fill="currentColor" />
-        </motion.g>
-      </svg>
-    ),
-
     /* -------------------------------- OT24 -------------------------------- */
     ot24: (
       <svg viewBox="0 0 320 200" className={common}>
@@ -162,46 +90,6 @@ export function ProjectVisual({ slug, className }: { slug: string; className?: s
           animate={reduce ? undefined : { x: [0, 4, 0] }}
           transition={{ duration: 1.8, repeat: Infinity }}
         />
-      </svg>
-    ),
-
-    /* --------------------- Wind Quality Prediction ------------------------ */
-    "wind-quality-prediction": (
-      <svg viewBox="0 0 320 200" className={common}>
-        <path d="M56 158 L56 44 M56 158 L268 158" stroke="var(--border)" strokeWidth="1.2" />
-        {[70, 94, 118, 142, 166, 190, 214, 238].map((x) => (
-          <line key={x} x1={x} y1="158" x2={x} y2="152" stroke="var(--border)" strokeWidth="1" />
-        ))}
-        <motion.path
-          d="M56 142 C 84 128, 102 92, 130 100 S 168 118, 186 84 S 230 52, 264 56"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.4"
-          strokeLinecap="round"
-          initial={reduce ? undefined : { pathLength: 0.2, opacity: 0.5 }}
-          animate={reduce ? undefined : { pathLength: [0.2, 1], opacity: [0.5, 1] }}
-          transition={{ duration: 2.8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-        />
-        {[
-          [130, 100],
-          [186, 84],
-          [264, 56],
-        ].map(([x, y], i) => (
-          <motion.circle
-            key={i}
-            cx={x}
-            cy={y}
-            r="4"
-            fill="currentColor"
-            initial={reduce ? undefined : { scale: 1 }}
-            animate={reduce ? undefined : { scale: [1, 1.5, 1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-          />
-        ))}
-        <rect x="212" y="34" width="58" height="20" rx="10" fill="currentColor" opacity="0.14" />
-        <text x="241" y="47.5" textAnchor="middle" fontSize="9.5" className="font-mono" fill="currentColor">
-          85%+ acc
-        </text>
       </svg>
     ),
 

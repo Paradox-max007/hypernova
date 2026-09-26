@@ -10,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArchitectureDiagram, hasDiagram } from "./architecture-diagrams";
+import { ArchitectureDiagram, DIAGRAM_TITLES, diagramKeys } from "./architecture-diagrams";
 import { ProjectVisual } from "./project-visual";
 import { AnimatedCounter } from "./animated-counter";
 import { Reveal } from "./reveal";
@@ -79,13 +79,14 @@ export function ProjectDetail({ project, allProjects }: ProjectDetailProps) {
   const reduce = useReducedMotion();
   const index = allProjects.findIndex((p) => p.slug === project.slug);
   const next = allProjects[(index + 1) % allProjects.length];
+  const diagrams = diagramKeys(project.architecture);
 
   const sections: Array<{ id: string; label: string; enabled: boolean }> = [
     { id: "idea", label: "The Idea", enabled: !!project.idea },
     { id: "problem", label: "The Problem", enabled: !!project.problem },
     { id: "solution", label: "The Solution", enabled: !!project.solution },
     { id: "how", label: "How It Works", enabled: project.howItWorks.length > 0 },
-    { id: "architecture", label: "Architecture", enabled: hasDiagram(project.architecture) },
+    { id: "architecture", label: "Architecture", enabled: diagrams.length > 0 },
     { id: "technology", label: "Technology", enabled: project.technologies.length > 0 },
     { id: "features", label: "Features", enabled: project.features.length > 0 },
     { id: "challenges", label: "Challenges", enabled: !!project.challenges },
@@ -310,13 +311,23 @@ export function ProjectDetail({ project, allProjects }: ProjectDetailProps) {
               </CaseBlock>
             )}
 
-            {hasDiagram(project.architecture) && (
+            {diagrams.length > 0 && (
               <CaseBlock id="architecture" label="Architecture">
                 <p className={cn(prose, "mb-8")}>
                   The system at a glance — nodes, authoritative flows and how every layer connects. Animated edges
                   show live data movement.
                 </p>
-                <ArchitectureDiagram architecture={project.architecture!} />
+                <div className="space-y-10">
+                  {diagrams.map((key) => (
+                    <div key={key}>
+                      <div className="mb-3 flex items-center gap-2.5 font-mono text-[10px] tracking-[0.22em] uppercase text-muted-foreground">
+                        <span className="inline-block size-1.5 rotate-45 bg-primary" aria-hidden />
+                        {DIAGRAM_TITLES[key] ?? "System diagram"}
+                      </div>
+                      <ArchitectureDiagram architecture={key} />
+                    </div>
+                  ))}
+                </div>
               </CaseBlock>
             )}
 

@@ -21,8 +21,8 @@ export function WorkView({ projects }: { projects: Project[] }) {
       </Reveal>
       <Reveal delay={0.14}>
         <p className="mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-          {projects.length} projects — realtime platforms, games, machine learning, client delivery. Each opens
-          into a full case study.
+          {projects.length} case studies — live client production, an ambitious realtime hobby project and
+          college-built full-stack systems. Each opens into a full case study.
         </p>
       </Reveal>
 

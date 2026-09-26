@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { Reveal } from "./reveal";
 
 interface FooterProps {
@@ -31,13 +31,13 @@ export function Footer({ email, github, linkedin, location }: FooterProps) {
               <div className="font-display text-2xl font-bold tracking-[0.1em] text-foreground">
                 JYOTHILAL<span className="text-primary">.</span>REJI
               </div>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.22em] uppercase text-primary">
-                <span className="relative flex size-1.5">
-                  <span className="absolute inline-flex size-1.5 animate-ping rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
-                </span>
-                System online
-              </div>
+              <a
+                href="#contact"
+                className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] tracking-[0.22em] uppercase text-primary transition-colors hover:border-primary/60 hover:bg-primary/15"
+              >
+                Open to contact
+                <ArrowUpRight size={10} aria-hidden className="transition-transform duration-300 hover:-translate-y-0.5" />
+              </a>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                 Building digital products, interactive systems and intelligent applications.
                 <br />
@@ -95,7 +95,7 @@ export function Footer({ email, github, linkedin, location }: FooterProps) {
                   <br />
                   Tailwind CSS · Framer Motion
                   <br />
-                  Prisma · SQLite
+                  Prisma · PostgreSQL (Supabase)
                 </p>
               </div>
             </div>

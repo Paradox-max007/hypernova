@@ -17,6 +17,7 @@ interface SkillsSectionProps {
 const HUBS: Record<string, { x: number; y: number; r: number; angle: number }> = {
   Languages: { x: 195, y: 150, r: 66, angle: 0.35 },
   Web: { x: 475, y: 95, r: 80, angle: 1.15 },
+  Mobile: { x: 655, y: 250, r: 50, angle: 2.7 },
   "Data & ML": { x: 755, y: 150, r: 66, angle: 2.05 },
   "ML Algorithms": { x: 800, y: 432, r: 74, angle: 2.95 },
   Visualization: { x: 560, y: 572, r: 52, angle: 3.85 },
@@ -34,6 +35,7 @@ const RELATED: Record<string, string[]> = {
   SQL: ["MySQL", "Pandas"],
   "Power BI": ["Matplotlib", "Seaborn"],
   "Scikit-learn": ["Random Forest", "SVM", "KNN"],
+  Flutter: ["Capacitor", "React", "TypeScript"],
 };
 
 interface Node {
@@ -122,7 +124,7 @@ export function SkillsSection({ technologies, projects }: SkillsSectionProps) {
               The technology <span className="text-primary">constellation.</span>
             </>
           }
-          description="No percentage bars. Every node is real, grounded in shipped work — select any technology to see what it's used for and which projects it powers."
+          description="No percentage bars. Every node is real, grounded in actual work — select any technology to see what it's used for and which projects it powers."
         />
 
         {/* ------------------------- Desktop constellation ------------------------- */}

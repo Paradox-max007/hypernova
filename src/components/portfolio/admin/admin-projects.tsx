@@ -27,19 +27,17 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { adminFetch, itemsToLines, parseLineItems } from "./admin-api";
 
-const ARCHITECTURES: Array<{ value: string; label: string }> = [
-  { value: "none", label: "None" },
-  { value: "quicky-system", label: "Quicky — system tree" },
-  { value: "bottle-realtime", label: "Spin The Bottle — realtime fan-out" },
-  { value: "ludo-multiplayer", label: "Ludo — multiplayer loop" },
-  { value: "ml-pipeline", label: "ML — vertical pipeline" },
-  { value: "booking-flow", label: "Booking — request flow" },
-  { value: "commerce-flow", label: "Commerce — order flow" },
-  { value: "client-delivery", label: "Client — delivery loop" },
+/** Valid keys for the animated architecture diagrams (comma-separable). */
+const DIAGRAM_KEYS = [
+  "quicky-system",
+  "bottle-realtime",
+  "ludo-multiplayer",
+  "booking-flow",
+  "commerce-flow",
+  "client-delivery",
 ];
 
 interface Draft {
@@ -438,19 +436,16 @@ export function AdminProjects({ data, refresh }: { data: PortfolioData; refresh:
                   <TextField label="Accent hex" value={draft.accentColor} onChange={(v) => patch({ accentColor: v })} />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-medium">Architecture diagram</Label>
-                  <Select value={draft.architecture} onValueChange={(v) => patch({ architecture: v })}>
-                    <SelectTrigger className="bg-background text-sm">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ARCHITECTURES.map((a) => (
-                        <SelectItem key={a.value} value={a.value}>
-                          {a.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <Label className="text-xs font-medium">Architecture diagram(s)</Label>
+                  <Input
+                    value={draft.architecture === "none" ? "" : draft.architecture}
+                    onChange={(e) => patch({ architecture: e.target.value })}
+                    placeholder="e.g. quicky-system,bottle-realtime,ludo-multiplayer"
+                    className="bg-background font-mono text-xs"
+                  />
+                  <p className="text-[11px] leading-relaxed text-muted-foreground">
+                    Comma-separated diagram keys — leave empty for none. Keys: {DIAGRAM_KEYS.join(" · ")}
+                  </p>
                 </div>
               </FormSection>
 

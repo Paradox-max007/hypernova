@@ -94,28 +94,6 @@ const DIAGRAMS: Record<string, DiagramSpec> = {
     ],
   },
 
-  "ml-pipeline": {
-    width: 800,
-    height: 660,
-    nodes: [
-      { id: "problem", label: "Problem", sub: "wind quality classification", x: 400, y: 60 },
-      { id: "dataset", label: "Dataset", sub: "meteorological records", x: 400, y: 145 },
-      { id: "preprocess", label: "Preprocessing", sub: "cleaning · encoding · scaling", x: 400, y: 230 },
-      { id: "features", label: "Feature Engineering", sub: "derived signal", x: 400, y: 315 },
-      { id: "training", label: "Model Training", sub: "Random Forest + SVM", x: 400, y: 400 },
-      { id: "evaluation", label: "Evaluation", sub: "85%+ accuracy · 15% less error", x: 400, y: 485 },
-      { id: "prediction", label: "Prediction", sub: "unseen data in, class out", x: 400, y: 590, kind: "core" },
-    ],
-    edges: [
-      { from: "problem", to: "dataset" },
-      { from: "dataset", to: "preprocess" },
-      { from: "preprocess", to: "features" },
-      { from: "features", to: "training" },
-      { from: "training", to: "evaluation" },
-      { from: "evaluation", to: "prediction" },
-    ],
-  },
-
   "booking-flow": {
     width: 830,
     height: 450,
@@ -158,20 +136,30 @@ const DIAGRAMS: Record<string, DiagramSpec> = {
     width: 850,
     height: 280,
     nodes: [
-      { id: "client", label: "Client", sub: "UAE business", x: 425, y: 60, kind: "core" },
-      { id: "discover", label: "Discover", sub: "business + audience", x: 105, y: 175 },
-      { id: "structure", label: "Structure", sub: "IA + content", x: 320, y: 175 },
-      { id: "build", label: "Build", sub: "responsive + fast", x: 535, y: 175 },
-      { id: "launch", label: "Launch", sub: "live + verified", x: 750, y: 175 },
+      { id: "client", label: "Client", sub: "UAE business — ot24.ae", x: 425, y: 60, kind: "core" },
+      { id: "discover", label: "Discover", sub: "brief + requirements", x: 105, y: 175 },
+      { id: "build", label: "Build", sub: "design + full stack", x: 320, y: 175 },
+      { id: "ship", label: "Ship", sub: "live production", x: 535, y: 175 },
+      { id: "iterate", label: "Iterate", sub: "maintain + improve", x: 750, y: 175 },
     ],
     edges: [
       { from: "client", to: "discover", label: "brief" },
-      { from: "discover", to: "structure" },
-      { from: "structure", to: "build" },
-      { from: "build", to: "launch" },
-      { from: "launch", to: "client", bend: 70, label: "feedback" },
+      { from: "discover", to: "build" },
+      { from: "build", to: "ship", label: "deploy" },
+      { from: "ship", to: "iterate" },
+      { from: "iterate", to: "client", bend: 70, label: "feedback" },
     ],
   },
+};
+
+/* Captions shown above each diagram inside a case study */
+export const DIAGRAM_TITLES: Record<string, string> = {
+  "quicky-system": "Platform — one codebase, every device",
+  "bottle-realtime": "Feature deep-dive · Spin the Bottle — realtime fan-out",
+  "ludo-multiplayer": "Feature deep-dive · Quicky Ludo — authoritative game loop",
+  "booking-flow": "Booking — request flow",
+  "commerce-flow": "Commerce — order flow",
+  "client-delivery": "Delivery — a year of build, ship, iterate",
 };
 
 /* ------------------------------- renderer -------------------------------- */
@@ -333,3 +321,10 @@ export function ArchitectureDiagram({ architecture, className }: { architecture:
 }
 
 export const hasDiagram = (key: string | null) => !!key && key in DIAGRAMS;
+
+/** A project may compose several diagrams — "quicky-system,bottle-realtime,ludo-multiplayer". */
+export const diagramKeys = (value: string | null | undefined): string[] =>
+  (value ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((key) => key in DIAGRAMS);

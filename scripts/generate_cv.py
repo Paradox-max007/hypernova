@@ -72,10 +72,11 @@ story.append(Spacer(1, 6))
 # ------------------------------- summary -------------------------------
 story += section("Summary")
 story.append(Paragraph(
-    "Computer applications graduate building complete digital products — realtime web and mobile applications, "
-    "machine-learning pipelines and business-facing websites. Experience spans data science and ML model "
-    "development (Python, Scikit-learn, Power BI) through full-stack product development (React, TypeScript, "
-    "Supabase, Capacitor), including a delivered client website for a UAE business.",
+    "Computer applications graduate building complete digital products — live production platforms, realtime "
+    "web and mobile applications, and data-driven systems. Experience spans one year of full-stack development "
+    "and maintenance on the live platform at ot24.ae for a UAE business, a data science internship "
+    "(Python, Scikit-learn, Power BI), and solo product development with React, TypeScript, Supabase and "
+    "Capacitor.",
     styles["body"],
 ))
 
@@ -83,7 +84,7 @@ story.append(Paragraph(
 story += section("Skills")
 skill_rows = [
     [Paragraph("<b>Languages</b>", styles["muted"]), Paragraph("Python, SQL, JavaScript, TypeScript, PHP", styles["body"])],
-    [Paragraph("<b>Web &amp; Mobile</b>", styles["muted"]), Paragraph("React, HTML, CSS, Django, Tailwind CSS, Supabase, Capacitor", styles["body"])],
+    [Paragraph("<b>Web &amp; Mobile</b>", styles["muted"]), Paragraph("React, HTML, CSS, Django, Tailwind CSS, Supabase, Capacitor, Flutter (basic)", styles["body"])],
     [Paragraph("<b>Data / ML</b>", styles["muted"]), Paragraph("Pandas, NumPy, Scikit-learn, TensorFlow, Keras, Random Forest, SVM, KNN, Neural Networks", styles["body"])],
     [Paragraph("<b>Visualization</b>", styles["muted"]), Paragraph("Power BI, Matplotlib, Seaborn", styles["body"])],
     [Paragraph("<b>Tools</b>", styles["muted"]), Paragraph("Git, AWS, Jupyter, Google Colab, MySQL, WAMP", styles["body"])],
@@ -100,6 +101,14 @@ story.append(skill_table)
 
 # ----------------------------- experience -----------------------------
 story += section("Experience")
+story.append(Paragraph("Full Stack Developer — ONTIME24 (ot24.ae), Remote · UAE", styles["job"]))
+story.append(Paragraph("April 2025 – March 2026", styles["jmeta"]))
+story += bullets([
+    "Built, deployed and maintained the live production platform at ot24.ae end-to-end for one year.",
+    "Full-stack development across responsive frontend, business logic, data and deployment.",
+    "Continuous production iteration — monitoring, fixes, performance tuning and feature updates.",
+])
+story.append(Spacer(1, 6))
 story.append(Paragraph("Data Science Intern — Luminar Technolab, Kochi, Ernakulam", styles["job"]))
 story.append(Paragraph("May 2024 – Present", styles["jmeta"]))
 story += bullets([
@@ -112,20 +121,18 @@ story += bullets([
 # ------------------------------ projects ------------------------------
 story += section("Projects")
 projects = [
-    ("Quicky — Gamified social connection platform (React, TypeScript, Supabase, Capacitor)", [
+    ("ONTIME24 — Live production platform for a UAE business (HTML, CSS, JavaScript, React)", [
+        "Live at ot24.ae — designed, built and maintained full-stack for one year (Apr 2025 – Mar 2026).",
+        "Continuous production iteration: performance, responsiveness and feature updates.",
+    ]),
+    ("Quicky — Gamified social platform · solo hobby project, in development (React, TypeScript, Supabase, Capacitor)", [
         "Realtime multiplayer platform with rooms, chat, friends, coins, gifts, themes and an admin console.",
         "Includes Spin the Bottle (12-player rooms) and multiplayer Ludo with server-authoritative dice.",
     ]),
-    ("OT24.AE — Live business website for a UAE client (HTML, CSS, JavaScript)", [
-        "Complete digital presence designed, built and delivered end-to-end; live at ot24.ae.",
-    ]),
-    ("Wind Quality Prediction — ML system (Python, Scikit-learn, Pandas)", [
-        "Random Forest and SVM classifiers achieving 85%+ accuracy; reduced prediction error by 15%.",
-    ]),
-    ("Online Shoe Store — E-commerce (Django, Python, MySQL)", [
+    ("Online Shoe Store — E-commerce, college project (Django, Python, MySQL)", [
         "Transactional order and inventory management supporting 50+ daily transactions across 50+ products.",
     ]),
-    ("Doctor Appointment Booking — Web application (PHP, MySQL, JavaScript)", [
+    ("Doctor Appointment Booking — Web application, college project (PHP, MySQL, JavaScript)", [
         "Online booking with doctor schedules, slot integrity enforced at the database level.",
     ]),
 ]
@@ -147,7 +154,7 @@ story += bullets([
 
 # ------------------------------ languages -----------------------------
 story += section("Languages")
-story.append(Paragraph("English (Fluent) · Malayalam (Native)", styles["body"]))
+story.append(Paragraph("English (Fluent) · Malayalam (Native) · Hindi (Basic)", styles["body"]))
 
 doc.build(story)
 print("CV PDF written to /home/z/my-project/public/jyothilal-reji-cv.pdf")

@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -50,5 +51,31 @@ test
 prompt
 
 server.log
+
 # Skills directory
 /skills/
+
+# ── project-specific ────────────────────────────────────────────────
+
+# local SQLite database binaries (production uses Supabase — db/supabase-setup.sql)
+db/*.db
+
+# lockfiles — production installs with npm so postinstall always runs
+bun.lock
+
+# agent / QA artifacts
+tool-results/
+scripts/*.png
+scripts/sqlcheck/
+
+# internal multi-agent worklog
+worklog.md
+
+# sandbox platform scaffolding (kept locally, not part of the published project)
+/.zscripts/
+/Caddyfile
+/download/
+/examples/
+/mini-services/
+/tests/
+/scripts/revert_tagline.ts

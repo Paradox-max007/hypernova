@@ -26,13 +26,13 @@ const CARDS = [
     id: "build",
     icon: Wrench,
     title: "How I build",
-    body: "I prefer building complete experiences rather than isolated features — from interface and interaction design through backend logic, data and deployment. Quicky is the proof: game engines, social systems, economy, admin console and mobile delivery, owned end-to-end by one person.",
+    body: "I prefer building complete experiences rather than isolated features — from interface and interaction design through backend logic, data and deployment. A year on ONTIME24 proved it for a client: one developer owning a live production platform end-to-end. Quicky proves it for the love of the craft: game engines, social systems, economy and admin console, all owned solo.",
   },
   {
     id: "learning",
     icon: BookOpen,
     title: "What I'm learning",
-    body: "Going deeper on realtime systems at scale — authoritative state, conflict resolution, presence — and on bringing AI meaningfully into products: not chatbots bolted onto pages, but intelligence woven into how an application behaves and responds.",
+    body: "Going deeper on realtime systems at scale — authoritative state, conflict resolution, presence — on mobile development with Flutter, and on bringing AI meaningfully into products: not chatbots bolted onto pages, but intelligence woven into how an application behaves and responds.",
   },
   {
     id: "interests",
@@ -263,7 +263,7 @@ export function AboutSection({ education, certifications, languages }: AboutSect
                           <motion.span
                             className="block h-full rounded-full bg-primary"
                             initial={{ width: 0 }}
-                            whileInView={{ width: lang.level === "Native" ? "100%" : "80%" }}
+                            whileInView={{ width: lang.level === "Native" ? "100%" : lang.level === "Fluent" ? "80%" : "45%" }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.3 + i * 0.12, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                           />

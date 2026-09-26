@@ -48,10 +48,10 @@ export function WorkSection({ projects }: WorkSectionProps) {
           label="Selected Work"
           title={
             <>
-              Work that <span className="text-primary">shipped.</span>
+              Work that <span className="text-primary">runs.</span>
             </>
           }
-          description="Seven projects across realtime platforms, games, machine learning and client delivery. Every one opens into a full case study — open any of them."
+          description="A live production platform for a UAE business, an ambitious realtime hobby build in development, and the college projects where the full-stack habit started. Every one opens into a full case study."
           action={
             <a
               href="#/work"

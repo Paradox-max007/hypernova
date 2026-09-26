@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, ChevronDown, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown, MapPin, Sparkles } from "lucide-react";
 import { DigitalCore } from "./digital-core";
 
 interface HeroProps {
@@ -39,13 +39,19 @@ export function Hero({ location }: HeroProps) {
         {/* Copy */}
         <motion.div variants={container} initial={reduce ? undefined : "hidden"} animate="show">
           <motion.div variants={item}>
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.24em] uppercase text-primary">
-              <span className="relative flex size-1.5">
-                <span className="absolute inline-flex size-1.5 animate-ping rounded-full bg-primary opacity-60" />
-                <span className="relative inline-flex size-1.5 rounded-full bg-primary" />
-              </span>
-              System online — available for projects
-            </div>
+            <a
+              href="#contact"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 font-mono text-[10px] tracking-[0.24em] uppercase text-primary transition-colors hover:border-primary/60 hover:bg-primary/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              aria-label="Open to contact — jump to the contact section"
+            >
+              Open to connect — start a conversation
+              <ArrowUpRight
+                size={11}
+                strokeWidth={2}
+                aria-hidden
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
           </motion.div>
 
           <motion.h1
